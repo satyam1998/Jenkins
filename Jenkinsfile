@@ -1,26 +1,48 @@
 pipeline {
+
       agent any
+
       stages {
-            stage('Init') {
+
+            stage('GIT') {
+
                   steps {
-                        echo 'Hi, this is Anshul from LevelUp360'
+
+                        echo 'Hi, this is Satyam from 3Pillar'
+
                         echo 'We are Starting the Testing'
+                        git 'https://github.com/satyam1998/Jenkins.git'
+
                   }
+
             }
+            stage('COMPILE_packege') {
+
+                  steps {
+
+                        echo 'COMPILE THE FILE'
+                        tool name: 'Local_maven', type: 'maven'
+                        sh 'mvn -f java-tomcat-sample/pom.xml package'
+                        
+
+
+                  }
+
+            }
+
             stage('Build') {
+
                   steps {
+
                         echo 'Building Sample Maven Project'
+                        archiveArtifacts '**/*.war'
+                        copyArtifacts filter: '**/*.war', fingerprintArtifacts: true, projectName: 'First-pipeline'
+
                   }
+
             }
-            stage('Deploy') {
-                  steps {
-                        echo "Deploying in Staging Area"
-                  }
-            }
-            stage('Deploy Production') {
-                  steps {
-                        echo "Deploying in Production Area"
-                  }
-            }
+
+
       }
+
 }
