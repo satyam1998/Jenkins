@@ -36,7 +36,6 @@ pipeline {
 
                         echo 'Building Sample Maven Project'
                         archiveArtifacts '**/*.war'
-                        copyArtifacts filter: '**/*.war', fingerprintArtifacts: true, projectName: 'First-pipeline', selector: workspace()
 
                   }
 
