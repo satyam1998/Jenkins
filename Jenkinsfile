@@ -35,6 +35,7 @@ pipeline {
                   steps {
 
                         echo 'Building Sample Maven Project'
+                        archiveArtifacts '**/*.war'
 
                   }
 
